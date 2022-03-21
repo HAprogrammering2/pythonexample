@@ -26,23 +26,35 @@ weekdays = {
     7:"Sunday"}
 
 # Main starts here
-fancy_print_menu(["add", "delete", "print", "quit"])
-x = input("Choose:")
 
-print ("I don't want to " + items[int(x)-1])
+done = False
+while not done:
+    fancy_print_menu(["add", "delete", "print", "quit"])
+    x = input("Choose:")
+    try:
+        print ("I don't want to " + items[int(x)-1])
+        if x == "4":
+            done = True
+    except:
+        print ("Don't you try that with me!")
 
 datestr = input("Give me a date: ")
 
-numbers = datestr.split(".")
+try:
+    numbers = datestr.split(".")
 
-if len(numbers) != 3:
-    print ("ERROR")
-else:
-    day = int(numbers[0])
-    month = int(numbers[1])
-    year = int(numbers[2])
-    indate = datetime.date(year, month, day)
-    print ("Your date was a " + weekdays[indate.isoweekday()])
+    if len(numbers) != 3:
+        print ("You didn't give me a correct date.")
+    else:
+        day = int(numbers[0])
+        month = int(numbers[1])
+        year = int(numbers[2])
+        indate = datetime.date(year, month, day)
+        print ("Your date was a " + weekdays[indate.isoweekday()])
 
-# Ett mer magiskt exempel
-day, month, year = [int(p) for p in datestr.split(".")]
+    # Ett mer magiskt exempel: list comprehension
+    day, month, year = [int(p) for p in datestr.split(".")]
+
+except: 
+    print("Ok, fine! I didn't want a date anyway.")
+
